@@ -1,0 +1,17 @@
+Log any outside help you get in this file.
+
+Problem: I'm not quite sure what onCreate() does and whether I can put initial information such as
+        the letter buttons and the blanks for the word there.
+Solution, I found using Android Java's website that I can put this information there as long as I
+            I remember to call onCreate() agian when a new game is played.
+
+Problem: The alphabet letters I created told me that hardcoding an outline and the text on it was bad,
+        but I wasn't sure how to fix that
+Solution: for the outline I needed to paste the line: style="?android:attr/buttonBarButtonStyle" into
+            each button text blurb.(found on the Android studio website) For the text I looked at
+            Android website and originally thought I just had to say "@string" before each letter
+            but then I realized I had to put each letter into a separate
+
+Problem: I could not figure out where to write my code
+Solution: I looked up Android.app.Activity that FangManActivity extends which told me to put all static
+        information into the onCreate() method
