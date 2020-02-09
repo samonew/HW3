@@ -7,6 +7,7 @@ package edu.up.cs301.fangman;
         import android.graphics.Paint;
         import android.graphics.Path;
         import android.util.AttributeSet;
+        import android.util.Log;
         import android.view.SurfaceView;
 
         import java.io.BufferedReader;
@@ -74,11 +75,16 @@ public class FangManSurfaceView extends SurfaceView {
         p.setColor(Color.BLUE);
         p.setTextSize(120);
 
+
         Random ran = new Random();
         int id = ran.nextInt(words.length);
 
         //turns the word into an array of characters
         chosenWord= words[id].toCharArray();
+
+        //displays the chosen word in logcat info
+        Log.i("chosen word: ",words[id]);
+
 
         length = chosenWord.length;
 

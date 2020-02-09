@@ -15,3 +15,5 @@ Solution: for the outline I needed to paste the line: style="?android:attr/butto
 Problem: I could not figure out where to write my code
 Solution: I looked up Android.app.Activity that FangManActivity extends which told me to put all static
         information into the onCreate() method
+
+Problem: I cannot figure out how to create a certain number of dashes for each letter of the chosen word
