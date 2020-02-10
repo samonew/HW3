@@ -29,9 +29,11 @@ public class FangManSurfaceView extends SurfaceView {
 
     // the array of many English words, from which one is picked. This is
     // read in from a resource file.
+    private ButtonModel model = new ButtonModel();
     private static String[] words;
     private static char[] chosenWord;
     public int length;
+
     // constructor, modeled after superclass constructor
     public FangManSurfaceView(Context context) {
         super(context);
@@ -93,6 +95,10 @@ public class FangManSurfaceView extends SurfaceView {
 
     }
 
+    //getter method for the button model
+    public ButtonModel getModel(){
+        return model;
+    }
     public static char[] getChosenWord() {
         return chosenWord;
     }

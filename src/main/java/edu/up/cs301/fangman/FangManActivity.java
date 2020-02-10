@@ -1,6 +1,7 @@
 package edu.up.cs301.fangman;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
@@ -38,6 +39,12 @@ public class FangManActivity extends Activity {
 
         // load layout
         setContentView(R.layout.activity_fang_man);
+
+
+        FangManSurfaceView fangMan = findViewById(R.id.main_view);
+                //new FangManSurfaceView(context);
+
+        buttonController controller = new buttonController(fangMan);
 
         //initialized all of the alphabet buttons
         Button A = findViewById(R.id.button1);
@@ -105,9 +112,7 @@ public class FangManActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void onClick() {
 
-    }
 }
 
 
