@@ -1,5 +1,6 @@
 package edu.up.cs301.fangman;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 
 public class buttonController implements View.OnClickListener, CompoundButton.OnCheckedChangeListener{
@@ -13,16 +14,15 @@ public class buttonController implements View.OnClickListener, CompoundButton.On
         model = fangman.getModel();
     }
 
+
     public void onClick(View view){
 
+        for(int i = 0; i < fangman.length; i++){
 
-        if(model.numRightGuesses >= fangman.length || model.numWrongGuesses == model.numFeatures){
-            model.isGameOver = true;
         }
 
-        if(model.inWord){
-            model.numRightGuesses ++;
-
+        if(model.numWrongGuesses == model.numFeatures){
+            model.isGameOver = true;
         }
 
         if(!model.inWord){

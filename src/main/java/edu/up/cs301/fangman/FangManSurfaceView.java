@@ -31,7 +31,7 @@ public class FangManSurfaceView extends SurfaceView {
     // read in from a resource file.
     private ButtonModel model = new ButtonModel();
     private static String[] words;
-    private static char[] chosenWord;
+    public static char[] chosenWord;
     public int length;
 
     // constructor, modeled after superclass constructor
@@ -72,6 +72,14 @@ public class FangManSurfaceView extends SurfaceView {
     @Override
     public void onDraw(Canvas c) {
 
+        int height = c.getHeight();
+        int width = c.getWidth();
+
+
+        int r = width / 3 + 100;
+        int x = width / 2 + 100;
+        int y = height / 2;
+
         // draw a random word from our list onto the Canvas
         Paint p = new Paint();
         p.setColor(Color.BLUE);
@@ -90,8 +98,11 @@ public class FangManSurfaceView extends SurfaceView {
 
         length = chosenWord.length;
 
+        for(int i = 0; i < chosenWord.length; i ++){
 
-        //c.drawText(words[id], 100, 600, p);
+        }
+
+
 
     }
 
@@ -99,9 +110,37 @@ public class FangManSurfaceView extends SurfaceView {
     public ButtonModel getModel(){
         return model;
     }
+
+    //getter method for the chosenword array
     public static char[] getChosenWord() {
+
         return chosenWord;
     }
+
+    //methods that draw features of the fangMan
+    public void drawFace(Canvas canvas, float x, float y, float r, Paint p){
+        canvas.drawCircle(x, y, r, p);
+    }
+
+    public void drawEye(Canvas canvas, float x, float y, float r, Paint p){
+        canvas.drawCircle(x, y, r, p);
+        canvas.drawCircle(x, y, r/3, p);
+    }
+
+    public void drawMouth(Path p, float x, float y){
+        p.moveTo(x,y);
+
+    }
+
+    public void drawNose(){
+
+    }
+
+    public void drawEar(){
+
+    }
+
+
 
     /**
      * reads list of game-words from the resource file
