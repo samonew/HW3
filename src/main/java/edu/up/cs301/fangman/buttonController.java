@@ -1,4 +1,5 @@
 package edu.up.cs301.fangman;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -24,20 +25,23 @@ public class buttonController implements View.OnClickListener, CompoundButton.On
             if(model.chosenWord[i] == model.guessedChar){
                 model.inWord = true;
                 model.numRightGuesses ++;
+                model.blanks[i] = true;
+                Log.i("guess:" ,"right");
             }
+
             else{
                 model.inWord = false;
                 model.numWrongGuesses ++;
+                Log.i("guess:", "right");
             }
+
         }
 
         if(model.numWrongGuesses == model.numFeatures){
             model.isGameOver = true;
         }
 
-        if(!model.inWord){
-            fangman.invalidate();
-        }
+        fangman.invalidate();
 
     }
 

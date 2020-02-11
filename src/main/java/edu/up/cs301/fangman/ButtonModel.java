@@ -7,6 +7,7 @@ public class ButtonModel {
     int numFeatures = 7;
     char guessedChar;
     char[] chosenWord;
+    boolean[] blanks;
     int wins = 0;
     int losses = 0;
     boolean ifWon = false;

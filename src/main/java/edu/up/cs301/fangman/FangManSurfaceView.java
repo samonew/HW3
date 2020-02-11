@@ -75,49 +75,63 @@ public class FangManSurfaceView extends SurfaceView {
         int height = c.getHeight();
         int width = c.getWidth();
 
-        int r = width / 3 + 100;
-        int x = width / 2 + 100;
+        int r = width / 3 + 1000;
+        int x = width / 2 + 4000;
         int y = height / 2;
+        int length = model.chosenWord.length;
+        int linex = 3000;
 
         // draw a random word from our list onto the Canvas
         Paint p = new Paint();
         p.setColor(Color.BLUE);
         p.setTextSize(120);
 
-        length = model.chosenWord.length;
+        Paint background = new Paint();
+        background.setColor(Color.BLACK);
+        background.setTextSize((float)120);
 
+        for(int i = 0; i < length; i++){
+            if(model.blanks[i]){
+                c.drawLine((float)linex, (float)300, (float)linex+50, (float)300, background);
+                linex += 110;
+            }
+            else{
+                c.drawText(model.chosenWord, i, 1, (float)linex, (float)300, background);
+                linex += 100;
+            }
+        }
 
         if(model.numWrongGuesses == 1){
-            drawFace(c, x, y, r, p);
+            drawFace(c, x, y, r, background);
         }
         if(model.numWrongGuesses == 2){
-            drawFace(c, x, y, r, p);
-            drawEye(c,x + 50,y - 40,r/3, p);
+            drawFace(c, x, y, r, background);
+            drawEye(c,x + 50,y - 40,r/3, background);
         }
         if(model.numWrongGuesses == 3){
-            drawFace(c, x, y, r, p);
-            drawEye(c,x + 50,y - 40,r/3, p);
-            drawEye(c, x + 100, y - 40, r / 3, p);
+            drawFace(c, x, y, r, background);
+            drawEye(c,x + 50,y - 40,r/3, background);
+            drawEye(c, x + 100, y - 40, r / 3, background);
         }
         if(model.numWrongGuesses == 4){
-            drawFace(c, x, y, r, p);
-            drawEye(c,x + 50,y - 40,r/3, p);
-            drawEye(c, x + 100, y - 40, r / 3, p);
+            drawFace(c, x, y, r, background);
+            drawEye(c,x + 50,y - 40,r/3, background);
+            drawEye(c, x + 100, y - 40, r / 3, background);
         }
         if(model.numWrongGuesses == 5){
-            drawFace(c, x, y, r, p);
-            drawEye(c,x + 50,y - 40,r/3, p);
-            drawEye(c, x + 100, y - 40, r / 3, p);
+            drawFace(c, x, y, r, background);
+            drawEye(c,x + 50,y - 40,r/3, background);
+            drawEye(c, x + 100, y - 40, r / 3, background);
         }
         if(model.numWrongGuesses == 6){
-            drawFace(c, x, y, r, p);
-            drawEye(c,x + 50,y - 40,r/3, p);
-            drawEye(c, x + 100, y - 40, r / 3, p);
+            drawFace(c, x, y, r, background);
+            drawEye(c,x + 50,y - 40,r/3, background);
+            drawEye(c, x + 100, y - 40, r / 3, background);
         }
         if(model.numWrongGuesses == 7){
-            drawFace(c, x, y, r, p);
-            drawEye(c,x + 50,y - 40,r/3, p);
-            drawEye(c, x + 100, y - 40, r / 3, p);
+            drawFace(c, x, y, r, background);
+            drawEye(c,x + 50,y - 40,r/3, background);
+            drawEye(c, x + 100, y - 40, r / 3, background);
         }
     }
 

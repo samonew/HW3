@@ -41,17 +41,17 @@ public class FangManActivity extends Activity {
         Random ran = new Random();
         int id = ran.nextInt(fangMan.getWords().length);
 
+
         //turns the word into an array of characters
         fangMan.getModel().chosenWord = fangMan.getWords()[id].toCharArray();
+        fangMan.getModel().blanks = new boolean[fangMan.getModel().chosenWord.length];
+        for(int i = 0; i < fangMan.getModel().chosenWord.length; i++){
+            fangMan.getModel().blanks[i] = false;
+        }
 
         //displays the chosen word in logcat info
         Log.i("chosen word: ", fangMan.getWords()[id]);
 
-        //turns the word into an array of characters
-        fangMan.getModel().chosenWord= fangMan.getWords()[id].toCharArray();
-
-        //displays the chosen word in logcat info
-        Log.i("chosen word: ", fangMan.getWords()[id]);
 
         //initialized all of the alphabet buttons
         Button A = findViewById(R.id.button1);
@@ -117,7 +117,6 @@ public class FangManActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-
         getMenuInflater().inflate(R.menu.menu_fang_man, menu);
         return true;
     }
