@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,9 +22,6 @@ import java.util.Random;
  */
 public class FangManActivity extends Activity {
 
-
-
-
     /**
      * standard 'onCreate' method
      *
@@ -38,11 +36,22 @@ public class FangManActivity extends Activity {
         // load layout
         setContentView(R.layout.activity_fang_man);
 
-
         FangManSurfaceView fangMan = findViewById(R.id.main_view);
-                //new FangManSurfaceView(context);
-
         buttonController controller = new buttonController(fangMan);
+        Random ran = new Random();
+        int id = ran.nextInt(fangMan.getWords().length);
+
+        //turns the word into an array of characters
+        fangMan.getModel().chosenWord = fangMan.getWords()[id].toCharArray();
+
+        //displays the chosen word in logcat info
+        Log.i("chosen word: ", fangMan.getWords()[id]);
+
+        //turns the word into an array of characters
+        fangMan.getModel().chosenWord= fangMan.getWords()[id].toCharArray();
+
+        //displays the chosen word in logcat info
+        Log.i("chosen word: ", fangMan.getWords()[id]);
 
         //initialized all of the alphabet buttons
         Button A = findViewById(R.id.button1);
@@ -132,9 +141,4 @@ public class FangManActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
-
-
 }
-
-
-

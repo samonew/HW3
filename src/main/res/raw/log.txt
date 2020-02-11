@@ -17,3 +17,7 @@ Solution: I looked up Android.app.Activity that FangManActivity extends which to
         information into the onCreate() method
 
 Problem: I cannot figure out how to create a certain number of dashes for each letter of the chosen word
+
+Problem: I could not figure out how to get the character that called the controller
+Solution: Stack Overflow told me to recreate the button using the view and then call the toString()
+

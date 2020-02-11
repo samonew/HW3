@@ -31,8 +31,8 @@ public class FangManSurfaceView extends SurfaceView {
     // read in from a resource file.
     private ButtonModel model = new ButtonModel();
     private static String[] words;
-    public static char[] chosenWord;
     public int length;
+
 
     // constructor, modeled after superclass constructor
     public FangManSurfaceView(Context context) {
@@ -75,7 +75,6 @@ public class FangManSurfaceView extends SurfaceView {
         int height = c.getHeight();
         int width = c.getWidth();
 
-
         int r = width / 3 + 100;
         int x = width / 2 + 100;
         int y = height / 2;
@@ -85,36 +84,46 @@ public class FangManSurfaceView extends SurfaceView {
         p.setColor(Color.BLUE);
         p.setTextSize(120);
 
-
-        Random ran = new Random();
-        int id = ran.nextInt(words.length);
-
-        //turns the word into an array of characters
-        chosenWord= words[id].toCharArray();
-
-        //displays the chosen word in logcat info
-        Log.i("chosen word: ",words[id]);
+        length = model.chosenWord.length;
 
 
-        length = chosenWord.length;
-
-        for(int i = 0; i < chosenWord.length; i ++){
-
+        if(model.numWrongGuesses == 1){
+            drawFace(c, x, y, r, p);
         }
-
-
-
+        if(model.numWrongGuesses == 2){
+            drawFace(c, x, y, r, p);
+            drawEye(c,x + 50,y - 40,r/3, p);
+        }
+        if(model.numWrongGuesses == 3){
+            drawFace(c, x, y, r, p);
+            drawEye(c,x + 50,y - 40,r/3, p);
+            drawEye(c, x + 100, y - 40, r / 3, p);
+        }
+        if(model.numWrongGuesses == 4){
+            drawFace(c, x, y, r, p);
+            drawEye(c,x + 50,y - 40,r/3, p);
+            drawEye(c, x + 100, y - 40, r / 3, p);
+        }
+        if(model.numWrongGuesses == 5){
+            drawFace(c, x, y, r, p);
+            drawEye(c,x + 50,y - 40,r/3, p);
+            drawEye(c, x + 100, y - 40, r / 3, p);
+        }
+        if(model.numWrongGuesses == 6){
+            drawFace(c, x, y, r, p);
+            drawEye(c,x + 50,y - 40,r/3, p);
+            drawEye(c, x + 100, y - 40, r / 3, p);
+        }
+        if(model.numWrongGuesses == 7){
+            drawFace(c, x, y, r, p);
+            drawEye(c,x + 50,y - 40,r/3, p);
+            drawEye(c, x + 100, y - 40, r / 3, p);
+        }
     }
 
     //getter method for the button model
     public ButtonModel getModel(){
         return model;
-    }
-
-    //getter method for the chosenword array
-    public static char[] getChosenWord() {
-
-        return chosenWord;
     }
 
     //methods that draw features of the fangMan
@@ -140,8 +149,9 @@ public class FangManSurfaceView extends SurfaceView {
 
     }
 
-
-
+    public String[] getWords(){
+        return words;
+    }
     /**
      * reads list of game-words from the resource file
      *

@@ -16,9 +16,19 @@ public class buttonController implements View.OnClickListener, CompoundButton.On
 
 
     public void onClick(View view){
+        Button b = (Button)view;
+        String guessedString = b.getText().toString();
+        model.guessedChar = guessedString.charAt(0);
 
         for(int i = 0; i < fangman.length; i++){
-
+            if(model.chosenWord[i] == model.guessedChar){
+                model.inWord = true;
+                model.numRightGuesses ++;
+            }
+            else{
+                model.inWord = false;
+                model.numWrongGuesses ++;
+            }
         }
 
         if(model.numWrongGuesses == model.numFeatures){
@@ -26,12 +36,10 @@ public class buttonController implements View.OnClickListener, CompoundButton.On
         }
 
         if(!model.inWord){
-            model.numWrongGuesses ++;
             fangman.invalidate();
         }
 
     }
-
 
     public void onCheckedChanged(CompoundButton button, boolean b){
 
