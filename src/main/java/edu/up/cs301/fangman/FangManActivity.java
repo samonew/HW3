@@ -36,14 +36,18 @@ public class FangManActivity extends Activity {
         // load layout
         setContentView(R.layout.activity_fang_man);
 
+        //connects the view to the controller class
         FangManSurfaceView fangMan = findViewById(R.id.main_view);
         buttonController controller = new buttonController(fangMan);
+
+        //choses the word that the game is guessing
         Random ran = new Random();
         int id = ran.nextInt(fangMan.getWords().length);
 
-
         //turns the word into an array of characters
         fangMan.getModel().chosenWord = fangMan.getWords()[id].toCharArray();
+
+        //assigns the boolean array blanks a length then fills the array with false
         fangMan.getModel().blanks = new boolean[fangMan.getModel().chosenWord.length];
         for(int i = 0; i < fangMan.getModel().chosenWord.length; i++){
             fangMan.getModel().blanks[i] = false;
@@ -51,7 +55,6 @@ public class FangManActivity extends Activity {
 
         //displays the chosen word in logcat info
         Log.i("chosen word: ", fangMan.getWords()[id]);
-
 
         //initialized all of the alphabet buttons
         Button A = findViewById(R.id.button1);
@@ -107,6 +110,12 @@ public class FangManActivity extends Activity {
         Button Z = findViewById(R.id.button26);
         Z.setOnClickListener(controller);
 
+    }
+
+    public void onClick(View view){
+        FangManSurfaceView fangMan = findViewById(R.id.main_view);
+        buttonController controller = new buttonController(fangMan);
+        controller.onClick(view);
     }
 
     /**

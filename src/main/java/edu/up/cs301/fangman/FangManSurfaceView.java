@@ -6,6 +6,7 @@ package edu.up.cs301.fangman;
         import android.graphics.Color;
         import android.graphics.Paint;
         import android.graphics.Path;
+        import android.graphics.RectF;
         import android.util.AttributeSet;
         import android.util.Log;
         import android.view.SurfaceView;
@@ -72,9 +73,11 @@ public class FangManSurfaceView extends SurfaceView {
     @Override
     public void onDraw(Canvas c) {
 
+        //dummy variables for the canvas height and width
         int height = c.getHeight();
         int width = c.getWidth();
 
+        //variable to base the dimensions of everything on
         int r = width / 3 + 1000;
         int x = width / 2 + 4000;
         int y = height / 2;
@@ -86,12 +89,16 @@ public class FangManSurfaceView extends SurfaceView {
         p.setColor(Color.BLUE);
         p.setTextSize(120);
 
+        Path path = new Path();
+
+        //sets a paint object for the features (named background which is confusing)
         Paint background = new Paint();
         background.setColor(Color.BLACK);
         background.setTextSize((float)120);
 
+        //checks to see if the blanks array has any true values. If it does then draw the letter guessed
         for(int i = 0; i < length; i++){
-            if(model.blanks[i]){
+            if(!model.blanks[i]){
                 c.drawLine((float)linex, (float)300, (float)linex+50, (float)300, background);
                 linex += 110;
             }
@@ -101,6 +108,7 @@ public class FangManSurfaceView extends SurfaceView {
             }
         }
 
+        //draws features according to the number of wrong guesses
         if(model.numWrongGuesses == 1){
             drawFace(c, x, y, r, background);
         }
@@ -117,21 +125,30 @@ public class FangManSurfaceView extends SurfaceView {
             drawFace(c, x, y, r, background);
             drawEye(c,x + 50,y - 40,r/3, background);
             drawEye(c, x + 100, y - 40, r / 3, background);
+            drawMouth(path, x, y);
         }
         if(model.numWrongGuesses == 5){
             drawFace(c, x, y, r, background);
             drawEye(c,x + 50,y - 40,r/3, background);
             drawEye(c, x + 100, y - 40, r / 3, background);
+            drawMouth(path, x, y);
+            drawNose(path, x, y);
         }
         if(model.numWrongGuesses == 6){
             drawFace(c, x, y, r, background);
             drawEye(c,x + 50,y - 40,r/3, background);
             drawEye(c, x + 100, y - 40, r / 3, background);
+            drawMouth(path, x, y);
+            drawNose(path, x, y);
+            drawEar(path, x, y, true);
         }
         if(model.numWrongGuesses == 7){
             drawFace(c, x, y, r, background);
             drawEye(c,x + 50,y - 40,r/3, background);
             drawEye(c, x + 100, y - 40, r / 3, background);
+            drawMouth(path, x, y);
+            drawNose(path, x, y);
+            drawEar(path, x, y, false);
         }
     }
 
@@ -139,6 +156,7 @@ public class FangManSurfaceView extends SurfaceView {
     public ButtonModel getModel(){
         return model;
     }
+
 
     //methods that draw features of the fangMan
     public void drawFace(Canvas canvas, float x, float y, float r, Paint p){
@@ -152,20 +170,37 @@ public class FangManSurfaceView extends SurfaceView {
 
     public void drawMouth(Path p, float x, float y){
         p.moveTo(x,y);
-
+        RectF rect = new RectF(x, y, x + 100, y - 100);
+        p.arcTo(rect, 180, 180, true);
     }
 
-    public void drawNose(){
-
+    public void drawNose(Path p, float x, float y){
+        p.moveTo(x, y);
+        RectF rect = new RectF(x, y, x + 100, y - 100);
+        p.arcTo(rect, 90, 180);
+        p.arcTo(rect, 90, 180);
+        p.lineTo(x, y);
     }
 
-    public void drawEar(){
+    public void drawEar(Path p, float x, float y, boolean b){
+        p.moveTo(x, y);
+        float q;
 
+        if(b){
+            q = x + 100;
+        }
+        else{
+            q = x - 100;
+        }
+        RectF rect = new RectF(q, y, x , y - 300);
+        p.arcTo(rect, 90, 180);
     }
 
+    //getter method for the array of the words
     public String[] getWords(){
         return words;
     }
+
     /**
      * reads list of game-words from the resource file
      *
