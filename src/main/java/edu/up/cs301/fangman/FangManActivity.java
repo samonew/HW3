@@ -45,7 +45,7 @@ public class FangManActivity extends Activity {
         int id = ran.nextInt(fangMan.getWords().length);
 
         //turns the word into an array of characters
-        fangMan.getModel().chosenWord = fangMan.getWords()[id].toCharArray();
+        fangMan.getModel().chosenWord = fangMan.getWords()[id].toUpperCase().toCharArray();
 
         //assigns the boolean array blanks a length then fills the array with false
         fangMan.getModel().blanks = new boolean[fangMan.getModel().chosenWord.length];

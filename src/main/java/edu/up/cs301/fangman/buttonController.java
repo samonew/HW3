@@ -8,6 +8,7 @@ public class buttonController implements View.OnClickListener, CompoundButton.On
 
     private FangManSurfaceView fangman;
     private ButtonModel model;
+    private FangManActivity activity = new FangManActivity();
 
     public buttonController(FangManSurfaceView view){
 
@@ -25,10 +26,11 @@ public class buttonController implements View.OnClickListener, CompoundButton.On
         String guessedString = b.getText().toString();
         model.guessedChar = guessedString.charAt(0);
 
+        model.inWord = false;
         //loops through the chosen word array to see if the character is in the array
         //if so then increase the number of right guesses, if not then increase the number of wrong guesses
         //either way invalidate and redraw after checking if there's still more wrong moves to be made
-        for(int i = 0; i < fangman.length; i++){
+        for(int i = 0; i < model.chosenWord.length; i++){
             if(model.chosenWord[i] == model.guessedChar){
                 model.inWord = true;
                 model.numRightGuesses ++;
@@ -37,15 +39,23 @@ public class buttonController implements View.OnClickListener, CompoundButton.On
             }
 
             else{
-                model.inWord = false;
-                model.numWrongGuesses ++;
-                Log.i("guess:", "right");
-            }
 
+                Log.i("guess:", "wrong");
+            }
+        }
+
+        if(!model.inWord){
+            model.numWrongGuesses++;
         }
 
         if(model.numWrongGuesses == model.numFeatures){
             model.isGameOver = true;
+        }
+        if(model.numRightGuesses == model.chosenWord.length){
+            model.isGameOver = true;
+        }
+        if(model.numRightGuesses > model.chosenWord.length || model.numWrongGuesses > model.numFeatures){
+            activity.recreate();
         }
 
         fangman.invalidate();

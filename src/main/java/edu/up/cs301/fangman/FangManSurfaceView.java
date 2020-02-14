@@ -1,5 +1,6 @@
 package edu.up.cs301.fangman;
 
+        import android.app.Dialog;
         import android.content.Context;
         import android.content.res.Resources;
         import android.graphics.Canvas;
@@ -10,6 +11,7 @@ package edu.up.cs301.fangman;
         import android.util.AttributeSet;
         import android.util.Log;
         import android.view.SurfaceView;
+        import android.widget.TextView;
 
         import java.io.BufferedReader;
         import java.io.IOException;
@@ -17,6 +19,8 @@ package edu.up.cs301.fangman;
         import java.io.InputStreamReader;
         import java.util.ArrayList;
         import java.util.Random;
+
+        import static android.graphics.Path.Direction.CW;
 
 /**
  * SurfaceView for playing "Fang Man" game.
@@ -78,16 +82,17 @@ public class FangManSurfaceView extends SurfaceView {
         int width = c.getWidth();
 
         //variable to base the dimensions of everything on
-        int r = width / 3 + 1000;
-        int x = width / 2 + 4000;
+        int r = width / 10;
+        int x = width / 2 + 100;
         int y = height / 2;
         int length = model.chosenWord.length;
-        int linex = 3000;
+        int linex = 300;
 
         // draw a random word from our list onto the Canvas
         Paint p = new Paint();
         p.setColor(Color.BLUE);
         p.setTextSize(120);
+        p.setStyle(Paint.Style.STROKE);
 
         Path path = new Path();
 
@@ -95,60 +100,78 @@ public class FangManSurfaceView extends SurfaceView {
         Paint background = new Paint();
         background.setColor(Color.BLACK);
         background.setTextSize((float)120);
+        background.setStyle(Paint.Style.STROKE);
 
         //checks to see if the blanks array has any true values. If it does then draw the letter guessed
         for(int i = 0; i < length; i++){
             if(!model.blanks[i]){
-                c.drawLine((float)linex, (float)300, (float)linex+50, (float)300, background);
+                c.drawLine((float)linex, (float)900, (float)linex+50, (float)900, background);
                 linex += 110;
             }
             else{
-                c.drawText(model.chosenWord, i, 1, (float)linex, (float)300, background);
+                c.drawText(model.chosenWord, i, 1, (float)linex, (float)900, background);
                 linex += 100;
             }
         }
 
         //draws features according to the number of wrong guesses
         if(model.numWrongGuesses == 1){
-            drawFace(c, x, y, r, background);
+            drawFace( c,x, y, r, p);
         }
         if(model.numWrongGuesses == 2){
-            drawFace(c, x, y, r, background);
-            drawEye(c,x + 50,y - 40,r/3, background);
+            drawFace(c, x, y, r, p);
+            drawEye(c,x - 50,y - 40,r/3, background);
         }
         if(model.numWrongGuesses == 3){
-            drawFace(c, x, y, r, background);
-            drawEye(c,x + 50,y - 40,r/3, background);
-            drawEye(c, x + 100, y - 40, r / 3, background);
+            drawFace(c, x, y, r, p);
+            drawEye(c,x - 50,y - 40,r/3, background);
+            drawEye(c, x + 50, y - 40, r / 3, background);
         }
         if(model.numWrongGuesses == 4){
-            drawFace(c, x, y, r, background);
-            drawEye(c,x + 50,y - 40,r/3, background);
-            drawEye(c, x + 100, y - 40, r / 3, background);
-            drawMouth(path, x, y);
+            drawFace(c, x, y, r, p);
+            drawEye(c,x - 50,y - 40,r/3, background);
+            drawEye(c, x + 50, y - 40, r / 3, background);
+            drawMouth(c, x, y, r / 8, background);
         }
         if(model.numWrongGuesses == 5){
-            drawFace(c, x, y, r, background);
-            drawEye(c,x + 50,y - 40,r/3, background);
-            drawEye(c, x + 100, y - 40, r / 3, background);
-            drawMouth(path, x, y);
-            drawNose(path, x, y);
+            drawFace(c, x, y, r, p);
+            drawEye(c,x - 50,y - 40,r/3, background);
+            drawEye(c, x + 50, y - 40, r / 3, background);
+            drawMouth(c, x, y, r / 8, background);
+            drawNose(c, x, y, background);
         }
         if(model.numWrongGuesses == 6){
-            drawFace(c, x, y, r, background);
-            drawEye(c,x + 50,y - 40,r/3, background);
-            drawEye(c, x + 100, y - 40, r / 3, background);
-            drawMouth(path, x, y);
-            drawNose(path, x, y);
-            drawEar(path, x, y, true);
+            drawFace( c, x, y, r, p);
+            drawEye(c,x - 50 ,y - 40,r/3, background);
+            drawEye(c, x + 50, y - 40, r / 3, background);
+            drawMouth(c, x, y, r / 8, background);
+            drawNose(c, x, y, background);
+            drawEar(c, x + 200, y, true, p);
         }
         if(model.numWrongGuesses == 7){
-            drawFace(c, x, y, r, background);
-            drawEye(c,x + 50,y - 40,r/3, background);
-            drawEye(c, x + 100, y - 40, r / 3, background);
-            drawMouth(path, x, y);
-            drawNose(path, x, y);
-            drawEar(path, x, y, false);
+            drawFace(c, x, y, r, p);
+            drawEye(c,x - 50,y - 40,r/3, background);
+            drawEye(c, x + 50, y - 40, r / 3, background);
+            drawMouth(c, x, y,r / 8, background);
+            drawNose(c, x, y, background);
+            drawEar(c, x + 200, y, true, p);
+            drawEar(c, x - 200, y, false, p);
+        }
+
+        int lines = 300;
+        if(model.isGameOver){
+
+            if(model.numWrongGuesses == 7){
+                c.drawText("You lose! Play again", x - 400, y - 200, p);
+            }
+            else if(model.numRightGuesses == model.chosenWord.length) {
+                c.drawText("Congradulations you win!", x - 400, y - 200, p);
+            }
+
+            for(int j = 0; j < model.chosenWord.length; j++){
+                c.drawText(model.chosenWord, j, 1, lines, 900, background );
+                lines += 110;
+            }
         }
     }
 
@@ -168,22 +191,21 @@ public class FangManSurfaceView extends SurfaceView {
         canvas.drawCircle(x, y, r/3, p);
     }
 
-    public void drawMouth(Path p, float x, float y){
-        p.moveTo(x,y);
-        RectF rect = new RectF(x, y, x + 100, y - 100);
-        p.arcTo(rect, 180, 180, true);
+    public void drawMouth(Canvas canvas, float x, float y, float r, Paint p){
+        canvas.drawCircle(x, y, r , p);
+        //RectF r = new RectF(x - 50, y, x + 50, y - 50);
+        //canvas.drawArc( r, 90, 180, false, p);
     }
 
-    public void drawNose(Path p, float x, float y){
-        p.moveTo(x, y);
-        RectF rect = new RectF(x, y, x + 100, y - 100);
-        p.arcTo(rect, 90, 180);
-        p.arcTo(rect, 90, 180);
-        p.lineTo(x, y);
+    public void drawNose(Canvas canvas, float x, float y, Paint p){
+        //canvas.drawOval(x - 25, y - 20, x + 25, y + 25, p);
+        RectF rect = new RectF(x - 25, y + 50, x + 25, y + 150);
+        canvas.drawArc(rect, 180, 180, true, p);
+
     }
 
-    public void drawEar(Path p, float x, float y, boolean b){
-        p.moveTo(x, y);
+    public void drawEar(Canvas canvas, float x, float y, boolean b, Paint p){
+
         float q;
 
         if(b){
@@ -192,8 +214,13 @@ public class FangManSurfaceView extends SurfaceView {
         else{
             q = x - 100;
         }
+
         RectF rect = new RectF(q, y, x , y - 300);
-        p.arcTo(rect, 90, 180);
+        canvas.drawArc(rect, 270, 180, true, p);
+        canvas.drawArc(rect, 90, 180, true, p);
+
+        RectF r = new RectF(q + 15, y, x, y + 2);
+        canvas.drawArc(rect, 90, 180, true, p);
     }
 
     //getter method for the array of the words
