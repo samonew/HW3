@@ -140,28 +140,12 @@ public class FangManSurfaceView extends SurfaceView {
             drawMouth(c, x, y, r / 8, background);
             drawNose(c, x, y, background);
         }
-        if(model.numWrongGuesses == 6){
-            drawFace( c, x, y, r, p);
-            drawEye(c,x - 50 ,y - 40,r/3, background);
-            drawEye(c, x + 50, y - 40, r / 3, background);
-            drawMouth(c, x, y, r / 8, background);
-            drawNose(c, x, y, background);
-            drawEar(c, x + 200, y, true, p);
-        }
-        if(model.numWrongGuesses == 7){
-            drawFace(c, x, y, r, p);
-            drawEye(c,x - 50,y - 40,r/3, background);
-            drawEye(c, x + 50, y - 40, r / 3, background);
-            drawMouth(c, x, y,r / 8, background);
-            drawNose(c, x, y, background);
-            drawEar(c, x + 200, y, true, p);
-            drawEar(c, x - 200, y, false, p);
-        }
+
 
         int lines = 300;
         if(model.isGameOver){
 
-            if(model.numWrongGuesses == 7){
+            if(model.numWrongGuesses == 5){
                 c.drawText("You lose! Play again", x - 400, y - 200, p);
             }
             else if(model.numRightGuesses == model.chosenWord.length) {
